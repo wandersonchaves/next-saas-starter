@@ -1,28 +1,30 @@
-'use client';
+'use client'
 
-import { Button } from '@/components/ui/button';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { customerPortalAction } from '@/lib/payments/actions';
-import { useActionState } from 'react';
-import { TeamDataWithMembers, User } from '@/lib/db/schema';
-import { removeTeamMember } from '@/app/(login)/actions';
-import { InviteTeamMember } from './invite-team';
+import {useActionState} from 'react'
+
+import {removeTeamMember} from '@/app/(login)/actions'
+import {Avatar, AvatarFallback, AvatarImage} from '@/components/ui/avatar'
+import {Button} from '@/components/ui/button'
+import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card'
+import {TeamDataWithMembers, User} from '@/lib/db/schema'
+import {customerPortalAction} from '@/lib/payments/actions'
+
+import {InviteTeamMember} from './invite-team'
 
 type ActionState = {
-  error?: string;
-  success?: string;
-};
+  error?: string
+  success?: string
+}
 
-export function Settings({ teamData }: { teamData: TeamDataWithMembers }) {
+export function Settings({teamData}: {teamData: TeamDataWithMembers}) {
   const [removeState, removeAction, isRemovePending] = useActionState<
     ActionState,
     FormData
-  >(removeTeamMember, { error: '', success: '' });
+  >(removeTeamMember, {error: '', success: ''})
 
   const getUserDisplayName = (user: Pick<User, 'id' | 'name' | 'email'>) => {
-    return user.name || user.email || 'Unknown User';
-  };
+    return user.name || user.email || 'Unknown User'
+  }
 
   return (
     <section className="flex-1 p-4 lg:p-8">
@@ -47,7 +49,10 @@ export function Settings({ teamData }: { teamData: TeamDataWithMembers }) {
                 </p>
               </div>
               <form action={customerPortalAction}>
-                <Button type="submit" variant="outline">
+                <Button
+                  type="submit"
+                  variant="outline"
+                >
                   Manage Subscription
                 </Button>
               </form>
@@ -62,7 +67,10 @@ export function Settings({ teamData }: { teamData: TeamDataWithMembers }) {
         <CardContent>
           <ul className="space-y-4">
             {teamData.teamMembers.map((member, index) => (
-              <li key={member.id} className="flex items-center justify-between">
+              <li
+                key={member.id}
+                className="flex items-center justify-between"
+              >
                 <div className="flex items-center space-x-4">
                   <Avatar>
                     <AvatarImage
@@ -87,7 +95,11 @@ export function Settings({ teamData }: { teamData: TeamDataWithMembers }) {
                 </div>
                 {index > 1 ? (
                   <form action={removeAction}>
-                    <input type="hidden" name="memberId" value={member.id} />
+                    <input
+                      type="hidden"
+                      name="memberId"
+                      value={member.id}
+                    />
                     <Button
                       type="submit"
                       variant="outline"
@@ -108,5 +120,5 @@ export function Settings({ teamData }: { teamData: TeamDataWithMembers }) {
       </Card>
       <InviteTeamMember />
     </section>
-  );
+  )
 }

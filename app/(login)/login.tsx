@@ -1,24 +1,26 @@
-'use client';
+'use client'
 
-import Link from 'next/link';
-import { useActionState } from 'react';
-import { useSearchParams } from 'next/navigation';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { CircleIcon, Loader2 } from 'lucide-react';
-import { signIn, signUp } from './actions';
-import { ActionState } from '@/lib/auth/middleware';
+import {CircleIcon, Loader2} from 'lucide-react'
+import Link from 'next/link'
+import {useSearchParams} from 'next/navigation'
+import React, {useActionState} from 'react'
 
-export function Login({ mode = 'signin' }: { mode?: 'signin' | 'signup' }) {
-  const searchParams = useSearchParams();
-  const redirect = searchParams.get('redirect');
-  const priceId = searchParams.get('priceId');
-  const inviteId = searchParams.get('inviteId');
+import {Button} from '@/components/ui/button'
+import {Input} from '@/components/ui/input'
+import {Label} from '@/components/ui/label'
+import {ActionState} from '@/lib/auth/middleware'
+
+import {signIn, signUp} from './actions'
+
+export function Login({mode = 'signin'}: {mode?: 'signin' | 'signup'}) {
+  const searchParams = useSearchParams()
+  const redirect = searchParams.get('redirect')
+  const priceId = searchParams.get('priceId')
+  const inviteId = searchParams.get('inviteId')
   const [state, formAction, pending] = useActionState<ActionState, FormData>(
     mode === 'signin' ? signIn : signUp,
-    { error: '' }
-  );
+    {error: ''},
+  )
 
   return (
     <div className="min-h-[100dvh] flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 bg-gray-50">
@@ -34,10 +36,25 @@ export function Login({ mode = 'signin' }: { mode?: 'signin' | 'signup' }) {
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-        <form className="space-y-6" action={formAction}>
-          <input type="hidden" name="redirect" value={redirect || ''} />
-          <input type="hidden" name="priceId" value={priceId || ''} />
-          <input type="hidden" name="inviteId" value={inviteId || ''} />
+        <form
+          className="space-y-6"
+          action={formAction}
+        >
+          <input
+            type="hidden"
+            name="redirect"
+            value={redirect || ''}
+          />
+          <input
+            type="hidden"
+            name="priceId"
+            value={priceId || ''}
+          />
+          <input
+            type="hidden"
+            name="inviteId"
+            value={inviteId || ''}
+          />
           <div>
             <Label
               htmlFor="email"
@@ -136,5 +153,5 @@ export function Login({ mode = 'signin' }: { mode?: 'signin' | 'signup' }) {
         </div>
       </div>
     </div>
-  );
+  )
 }

@@ -1,4 +1,4 @@
-import type { Config } from 'tailwindcss';
+import type {Config} from 'tailwindcss'
 
 const config: Config = {
   darkMode: ['class'],
@@ -61,5 +61,5 @@ const config: Config = {
     require('tailwindcss-react-aria-components'),
     require('tailwindcss-animate'),
   ],
-};
-export default config;
+}
+export default config

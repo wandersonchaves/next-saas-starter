@@ -1,11 +1,11 @@
-'use client';
+'use client'
 
-import { useState, useEffect } from 'react';
-import { Copy, Check } from 'lucide-react';
+import {Check, Copy} from 'lucide-react'
+import {useEffect, useState} from 'react'
 
 export function Terminal() {
-  const [terminalStep, setTerminalStep] = useState(0);
-  const [copied, setCopied] = useState(false);
+  const [terminalStep, setTerminalStep] = useState(0)
+  const [copied, setCopied] = useState(false)
   const terminalSteps = [
     'git clone https://github.com/leerob/next-saas-starter',
     'pnpm install',
@@ -13,23 +13,23 @@ export function Terminal() {
     'pnpm db:migrate',
     'pnpm db:seed',
     'pnpm dev 🎉',
-  ];
+  ]
 
   useEffect(() => {
     const timer = setTimeout(() => {
       setTerminalStep((prev) =>
-        prev < terminalSteps.length - 1 ? prev + 1 : prev
-      );
-    }, 500);
+        prev < terminalSteps.length - 1 ? prev + 1 : prev,
+      )
+    }, 500)
 
-    return () => clearTimeout(timer);
-  }, [terminalStep]);
+    return () => clearTimeout(timer)
+  }, [terminalStep])
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(terminalSteps.join('\n'));
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
+    navigator.clipboard.writeText(terminalSteps.join('\n'))
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
 
   return (
     <div className="w-full rounded-lg shadow-lg overflow-hidden bg-gray-900 text-white font-mono text-sm relative">
@@ -64,5 +64,5 @@ export function Terminal() {
         </div>
       </div>
     </div>
-  );
+  )
 }

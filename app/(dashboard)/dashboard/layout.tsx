@@ -1,25 +1,26 @@
-'use client';
+'use client'
 
-import { useState } from 'react';
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { Button } from '@/components/ui/button';
-import { Users, Settings, Shield, Activity, Menu } from 'lucide-react';
+import {Activity, Menu, Settings, Shield, Users} from 'lucide-react'
+import Link from 'next/link'
+import {usePathname} from 'next/navigation'
+import {useState} from 'react'
+
+import {Button} from '@/components/ui/button'
 
 export default function DashboardLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
-  const pathname = usePathname();
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const pathname = usePathname()
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false)
 
   const navItems = [
-    { href: '/dashboard', icon: Users, label: 'Team' },
-    { href: '/dashboard/general', icon: Settings, label: 'General' },
-    { href: '/dashboard/activity', icon: Activity, label: 'Activity' },
-    { href: '/dashboard/security', icon: Shield, label: 'Security' },
-  ];
+    {href: '/dashboard', icon: Users, label: 'Team'},
+    {href: '/dashboard/general', icon: Settings, label: 'General'},
+    {href: '/dashboard/activity', icon: Activity, label: 'Activity'},
+    {href: '/dashboard/security', icon: Shield, label: 'Security'},
+  ]
 
   return (
     <div className="flex flex-col min-h-[calc(100dvh-68px)] max-w-7xl mx-auto w-full">
@@ -49,7 +50,11 @@ export default function DashboardLayout({
         >
           <nav className="h-full overflow-y-auto p-4">
             {navItems.map((item) => (
-              <Link key={item.href} href={item.href} passHref>
+              <Link
+                key={item.href}
+                href={item.href}
+                passHref
+              >
                 <Button
                   variant={pathname === item.href ? 'secondary' : 'ghost'}
                   className={`my-1 w-full justify-start ${
@@ -69,5 +74,5 @@ export default function DashboardLayout({
         <main className="flex-1 overflow-y-auto p-0 lg:p-4">{children}</main>
       </div>
     </div>
-  );
+  )
 }

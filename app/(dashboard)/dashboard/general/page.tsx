@@ -1,28 +1,29 @@
-'use client';
+'use client'
 
-import { startTransition, useActionState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Label } from '@/components/ui/label';
-import { Loader2 } from 'lucide-react';
-import { useUser } from '@/lib/auth';
-import { updateAccount } from '@/app/(login)/actions';
+import {Loader2} from 'lucide-react'
+import React, {startTransition, useActionState} from 'react'
+
+import {updateAccount} from '@/app/(login)/actions'
+import {Button} from '@/components/ui/button'
+import {Card, CardContent, CardHeader, CardTitle} from '@/components/ui/card'
+import {Input} from '@/components/ui/input'
+import {Label} from '@/components/ui/label'
+import {useUser} from '@/lib/auth'
 
 type ActionState = {
-  error?: string;
-  success?: string;
-};
+  error?: string
+  success?: string
+}
 
 export default function GeneralPage() {
-  const { user } = useUser();
+  const {user} = useUser()
   const [state, formAction, isPending] = useActionState<ActionState, FormData>(
     updateAccount,
-    { error: '', success: '' }
-  );
+    {error: '', success: ''},
+  )
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+    event.preventDefault()
     // If you call the Server Action directly, it will automatically
     // reset the form. We don't want that here, because we want to keep the
     // client-side values in the inputs. So instead, we use an event handler
@@ -31,9 +32,9 @@ export default function GeneralPage() {
     // Another option here is to persist the values to local storage. I might
     // explore alternative options.
     startTransition(() => {
-      formAction(new FormData(event.currentTarget));
-    });
-  };
+      formAction(new FormData(event.currentTarget))
+    })
+  }
 
   return (
     <section className="flex-1 p-4 lg:p-8">
@@ -46,7 +47,10 @@ export default function GeneralPage() {
           <CardTitle>Account Information</CardTitle>
         </CardHeader>
         <CardContent>
-          <form className="space-y-4" onSubmit={handleSubmit}>
+          <form
+            className="space-y-4"
+            onSubmit={handleSubmit}
+          >
             <div>
               <Label htmlFor="name">Name</Label>
               <Input
@@ -92,5 +96,5 @@ export default function GeneralPage() {
         </CardContent>
       </Card>
     </section>
-  );
+  )
 }
